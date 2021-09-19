@@ -63,15 +63,15 @@ export default {
       default: 5
     }
   },
-  setup (props) {
+  setup (props: any) {
     const { data: posts } = useSWRV<TumblrJSON>(() => `${url}${props.type}?offset=${props.offset}&limit=${props.limit}${api_key}`, key =>
       fetch(key)
         .then(res => res.json())
         .then(json => ({ ...(json.response.posts), url: key }))
     )
     return {
-      posts,
-      ...props
+      limit: props.limit,
+      posts
     }
   }
 }
